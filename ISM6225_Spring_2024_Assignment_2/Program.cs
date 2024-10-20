@@ -63,10 +63,12 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here                
-                    
-                    List<int> missingNumbers = new List<int>();
+                // Write your code here
 
+                // Initialize a list to store missing numbers
+                List<int> missingNumbers = new List<int>();
+
+                    // Go through the array and mark the elements we've seen by turning their value into a negative number.
                     for (int i = 0; i < nums1.Length; i++)
                     {
                         int index = Math.Abs(nums1[i]) - 1;
@@ -76,20 +78,22 @@ namespace Assignment_2
                         }
                     }
 
-                    for (int i = 0; i < nums1.Length; i++)
+                // Find the unmarked (positive) numbers and add their corresponding values to the result list.
+                for (int i = 0; i < nums1.Length; i++)
                     {
                         if (nums1[i] > 0)
                         {
                             missingNumbers.Add(i + 1);
                         }
                     }
-                    return missingNumbers;                
+                    return missingNumbers;      // Return the list of missing numbers          
             }
-            catch (Exception)
+            catch (Exception) // Handle the exceptions.
             {
                 throw;
             }
         }
+        
 
         // Question 2: Sort Array by Parity
         public static int[] SortArrayByParity(int[] nums2)
@@ -97,27 +101,28 @@ namespace Assignment_2
             try
             {
                 // Write your code here               
-              
-                    int i = 0, j = nums2.Length - 1;
 
-                    while (i < j)
+                // Initialize two pointers, 'i' starting at the beginning and 'j' at the end of the array.
+                int i = 0, j = nums2.Length - 1;
+
+                    while (i < j) // Loop until the two pointers meet.
                     {
-                        if (nums2[i] % 2 > nums2[j] % 2)
+                        if (nums2[i] % 2 > nums2[j] % 2) 
                         {
                             int temp = nums2[i];
                             nums2[i] = nums2[j];
                             nums2[j] = temp;
-                        }
+                        } // If the element at 'i' is odd and the element at 'j' is even, swap them.
 
-                        if (nums2[i] % 2 == 0) i++;
-                        if (nums2[j] % 2 == 1) j--;
+                        if (nums2[i] % 2 == 0) i++; // Move the 'i' pointer forward if the element at 'i' is even.
+                        if (nums2[j] % 2 == 1) j--; // Move the 'j' pointer backward if the element at 'j' is odd. 
                     }
 
-                    return nums2;     
+                    return nums2;  // Return the array with even numbers at the front and odd numbers at the back.   
             }
             catch (Exception)
             {
-                throw;
+                throw; // To handle the exceptions.
             }
         }
 
@@ -126,27 +131,32 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
+                // Create a dictionary to store numbers and their indices.
+                Dictionary<int, int> map = new Dictionary<int, int>();
 
-                    Dictionary<int, int> map = new Dictionary<int, int>();
+                // Loop through each number in the array.
+                for (int i = 0; i < nums3.Length; i++)
+                {
+                    // Calculate the complement (target minus the current number).
+                    int complement = target - nums3[i];
 
-                    for (int i = 0; i < nums3.Length; i++)
+                    // Check if the complement is already in the dictionary.
+                    if (map.ContainsKey(complement))
                     {
-                        int complement = target - nums3[i];
-                        if (map.ContainsKey(complement))
-                        {
-
-                            return new int[] { map[complement], i };
-                        }
-                        map[nums3[i]] = i;
+                        // If found, return the indices of the complement and current number.
+                        return new int[] { map[complement], i };
                     }
 
-                    return new int[0]; 
-               
+                    // Add the current number and its index to the dictionary.
+                    map[nums3[i]] = i;
+                }
+
+                // Return an empty array if no pair is found that adds up to the target.
+                return new int[0];
             }
             catch (Exception)
             {
-                throw;
+              throw; // To handle the exceptions.
             }
         }
 
@@ -155,17 +165,20 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
+                // Sort the array in ascending order.
+                Array.Sort(nums4);
+                int n = nums4.Length;
 
-                    Array.Sort(nums4);
-                    int n = nums4.Length;
-
-                    return Math.Max(nums4[n-1] * nums4[n-2] * nums4[n-3],Math.Max(nums4[0] * nums4[1] * nums4[n-1], nums4[0] * nums4[n-1]*nums4[n-2]));
-               
+                // Return the maximum product of three numbers.
+                // This considers two cases: 
+                // (1) The product of the three largest numbers.
+                // (2) The product of two smallest (negative) numbers and the largest number, and
+                // as multiplying two negative numbers results in a positive product.
+                return Math.Max(nums4[n-1] * nums4[n-2] * nums4[n-3],nums4[0] * nums4[1] * nums4[n-1]);
             }
             catch (Exception)
             {
-
+                // To Handle any exceptions that occur.
                 throw;
             }
         }
@@ -175,21 +188,26 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
+                // If the input decimal number is 0, return "0" as the binary representation.
+                if (decimalNumber == 0) return "0";
 
-                    if (decimalNumber == 0) return "0";
+                // Initialize a StringBuilder to store the binary representation.
+                StringBuilder binary = new StringBuilder();
 
-                    StringBuilder binary = new StringBuilder();
-                    while (decimalNumber > 0)
-                    {
-                        binary.Insert(0, decimalNumber % 2);
-                        decimalNumber /= 2;
-                    }
+                // Convert the decimal number to binary by repeatedly dividing by 2
+                // and inserting the remainder (0 or 1) at the start of the StringBuilder.
+                while (decimalNumber > 0)
+                {
+                    binary.Insert(0, decimalNumber % 2);
+                    decimalNumber /= 2;
+                }
 
-                    return binary.ToString();                             
+                // Return the final binary string after conversion.
+                return binary.ToString();
             }
             catch (Exception)
             {
+                // To Handle any exceptions that might occur.
                 throw;
             }
         }
@@ -199,21 +217,30 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                         
-                    int left = 0, right = nums5.Length - 1;
+                // Initialize two pointers: left at the beginning and right at the end of the array.
+                int left = 0, right = nums5.Length - 1;
 
-                    while (left < right)
-                    {
-                        int mid = (left + right) / 2;
-                        if (nums5[mid] > nums5[right]) left = mid + 1;
-                        else right = mid;
-                    }
+                // Use a while loop to continue searching as long as left pointer is less than right pointer.
+                while (left < right)
+                {
+                    // Find the middle index of the current search range.
+                    int mid = (left + right) / 2;
 
-                    return nums5[left];               
+                    // If the middle element is greater than the rightmost element, 
+                    // the minimum is in the right half, so move the left pointer to mid + 1.
+                    if (nums5[mid] > nums5[right])
+                        left = mid + 1;
+                    // Otherwise, the minimum is in the left half, so move the right pointer to mid.
+                    else
+                        right = mid;
+                }
+
+                // Return the element at the left pointer, which is the minimum.
+                return nums5[left];
             }
             catch (Exception)
             {
+                // To Handle any exceptions.
                 throw;
             }
         }
@@ -223,47 +250,63 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                    int temp = x;
-                    if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+                // Store the original number in a temporary variable for later comparison.
+                int temp = x;
 
-                    int revertedNumber = 0;
-                    while (x > 0)
-                    {
-                        revertedNumber = revertedNumber * 10 + x % 10;
-                        x /= 10;
-                    }
-                    return temp == revertedNumber;
-             
+                // If the number is negative or ends with 0 (but isn't 0 itself), it's not a palindrome.
+                if (x < 0 || (x % 10 == 0 && x != 0))
+                    return false;
+
+                // Initialize a variable to hold the reversed number.
+                int revertedNumber = 0;
+
+                // Reverse the digits of the number.
+                while (x > 0)
+                {
+                    // Append the last digit of 'x' to the reversed number.
+                    revertedNumber = revertedNumber * 10 + x % 10;
+                    // Remove the last digit from 'x'.
+                    x /= 10;
+                }
+
+                // Check if the reversed number is equal to the original number.
+                return temp == revertedNumber;
             }
             catch (Exception)
             {
+                // To Handle any errors/ exceptions.
                 throw;
             }
         }
-
         // Question 8: Fibonacci Number
         public static int Fibonacci(int n)
         {
             try
             {
-                // Write your code here
+                // Check if the input number is less than or equal to 1
+                // If it is, return the number itself (0 or 1)
+                if (n <= 1) return n;
 
-                    if (n <= 1) return n;
+                // Create an array to hold Fibonacci numbers up to n
+                int[] fib = new int[n + 1];
 
-                    int[] fib = new int[n + 1];
-                    fib[0] = 0;
-                    fib[1] = 1;
+                // Initialize the first two Fibonacci numbers
+                fib[0] = 0; // The 0th Fibonacci number is 0
+                fib[1] = 1; // The 1st Fibonacci number is 1
 
-                    for (int i = 2; i <= n; i++)
-                    {
-                        fib[i] = fib[i-1] + fib[i-2];
-                    }
+                // Loop through from 2 to n to calculate Fibonacci numbers
+                for (int i = 2; i <= n; i++)
+                {
+                    // Each Fibonacci number is the sum of the two preceding ones
+                    fib[i] = fib[i-1] + fib[i-2];
+                }
 
-                    return fib[n];            
+                // Return the nth Fibonacci number
+                return fib[n];
             }
             catch (Exception)
             {
+                // If an error occurs, rethrow the exception
                 throw;
             }
         }
